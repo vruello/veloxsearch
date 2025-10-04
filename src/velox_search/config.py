@@ -7,6 +7,8 @@ import sys
 
 DEFAULT_CONFIG_PATH = "/etc/velox-search.conf.toml"
 
+# TODO: Could be simplified a lot using a library such as pydantic
+
 
 class ConfigLoader:
     """
@@ -97,30 +99,43 @@ class Config:
     logging: LoggingConfig
 
     @staticmethod
-    def _load_file(config_file: str) -> "Config":
-        with open(config_file, "rb") as fd:
-            data = tomllib.load(fd)
+    def _load_dict(data: dict[str, Any]) -> "Config":
+        """
+        Load a config dict
+        """
+        config_sections: dict[str, Type[ConfigLoader]] = {
+            "http_server": HttpServerConfig,
+            "search": SearchConfig,
+            "logging": LoggingConfig,
+        }
 
-            config_sections: dict[str, Type[ConfigLoader]] = {
-                "http_server": HttpServerConfig,
-                "search": SearchConfig,
-                "logging": LoggingConfig,
-            }
+        config_dict: dict[str, Any] = {}
+        for name, class_handler in config_sections.items():
+            if data.get(name) is None:
+                raise ValueError(f"Missing section [{name}]")
 
-            config_dict: dict[str, Any] = {}
-            for name, class_handler in config_sections.items():
-                if data.get(name) is None:
-                    raise ValueError(f"Missing section [{name}]")
+            if not isinstance(data[name], dict):
+                raise ValueError(f"Invalid section [{name}]")
 
-                if not isinstance(data[name], dict):
-                    raise ValueError(f"Invalid section [{name}]")
-
-                config_dict[name] = class_handler.load(data[name])
+            config_dict[name] = class_handler.load(data[name])
 
         return Config(**config_dict)
 
     @staticmethod
+    def _load_file(config_file: str) -> "Config":
+        """
+        Load a config file
+        """
+        with open(config_file, "rb") as fd:
+            data = tomllib.load(fd)
+            return Config._load_dict(data)
+
+    @staticmethod
     def load(file: Optional[str]) -> "Config":
+        """
+        Load configuration files, starting by <file> if provided followed by
+        DEFAULT_CONFIG_PATH
+        """
         # Config files to be loaded, sorted by "try" order
         # The first existing config file is used, following files are ignored
         config_files = [file] if file is not None else []
