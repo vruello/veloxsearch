@@ -1,0 +1,24 @@
+[project]
+name = "velox-search"
+version = "0.0.1"
+authors = [
+  { name="Vincent Ruello", email="5345986+vruello@users.noreply.github.com" },
+]
+description = "A very basic autocomplete system"
+readme = "README.md"
+requires-python = ">=3.13"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search"
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy",
+    "black",
+]
+
+[project.scripts]
+velox-search = "velox_search.bin.http_server:main"
