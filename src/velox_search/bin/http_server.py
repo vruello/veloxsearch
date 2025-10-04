@@ -59,7 +59,9 @@ class VeloxHTTPRequestHandler(BaseHTTPRequestHandler):
             return
 
         prefix = query[0]
+        # self.server is typed as a ThredingHTTPServer, but it is a VeloxHTTPServer
         velox = typing.cast(VeloxHTTPServer, self.server).velox_instance
+
         try:
             words = velox.search_prefix(prefix)
         except Exception as e:
