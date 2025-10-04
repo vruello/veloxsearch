@@ -16,6 +16,7 @@ class TestConfig(unittest.TestCase):
         [search]
         wordlist = "data/eff_large_wordlist.txt"
         algorithm = "naive"
+        limit = 10
 
         [logging]
         level = "debug"
@@ -28,7 +29,8 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(config.http_server.listen_port, 10000)
         self.assertEqual(config.search.wordlist, "data/eff_large_wordlist.txt")
         self.assertEqual(config.search.algorithm, "naive")
-        self.assertEqual(config.logging.level, "debug")
+        self.assertEqual(config.search.limit, 10)
+        self.assertEqual(config.logging.level, "DEBUG")
 
     def test_invalid_http_server_listen_addr(self):
         # Missing http_server.listen_addr

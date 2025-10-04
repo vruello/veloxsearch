@@ -27,12 +27,12 @@ class LoggingConfig(ConfigLoader):
 
     @staticmethod
     def load(data: dict[str, Any]) -> "LoggingConfig":
-        valid_levels = ["debug", "info", "warning", "error", "critical"]
+        valid_levels = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
 
         if not isinstance(data.get("level"), str):
             raise ValueError("Missing or invalid value logging.level")
 
-        level = data["level"].lower()
+        level = data["level"].upper()
         if not level in valid_levels:
             raise ValueError(
                 f"Invalid logging.level `{level}`. Valid levels are: {', '.join(valid_levels)}"
@@ -70,6 +70,7 @@ class HttpServerConfig(ConfigLoader):
 class SearchConfig(ConfigLoader):
     wordlist: str
     algorithm: SearchAlgorithm
+    limit: int
 
     @staticmethod
     def load(data: dict[str, Any]) -> "SearchConfig":
@@ -87,8 +88,13 @@ class SearchConfig(ConfigLoader):
                 f"{', '.join((algorithm.value for algorithm in SearchAlgorithm))}"
             )
 
+        if not isinstance(data.get("limit"), int):
+            raise ValueError("Missing or invalid value search.limit")
+
         return SearchConfig(
-            wordlist=data["wordlist"], algorithm=SearchAlgorithm(algorithm)
+            wordlist=data["wordlist"],
+            algorithm=SearchAlgorithm(algorithm),
+            limit=data["limit"],
         )
 
 
