@@ -1,4 +1,6 @@
 from http.client import HTTPResponse
+import json
+import os
 import logging
 import unittest
 import threading
@@ -15,6 +17,7 @@ from velox_search.config import (
     SearchAlgorithm,
     SearchConfig,
 )
+from velox_search.velox import Velox
 
 
 class TestVeloxSearch(unittest.TestCase):
@@ -33,14 +36,17 @@ class TestVeloxSearch(unittest.TestCase):
                 listen_addr="127.0.0.1", listen_port=cls.listen_port
             ),
             search=SearchConfig(
-                wordlist="../data/eff_large_wordlist.txt",
+                wordlist=os.path.join(
+                    os.path.dirname(__file__), "../data/eff_large_wordlist.txt"
+                ),
                 algorithm=SearchAlgorithm.Naive,
                 limit=10,
             ),
             logging=LoggingConfig(level="INFO"),
         )
+        velox = Velox(config)
         cls.base_url = f"http://127.0.0.1:{cls.listen_port}"
-        cls.httpd = http_server(config)
+        cls.httpd = http_server(config, velox)
 
         cls.http_server_thread = threading.Thread(target=cls.httpd.serve_forever)
         # Force the thread to stop when main thread exits
@@ -75,14 +81,37 @@ class TestVeloxSearch(unittest.TestCase):
         response = self._make_request(url)
 
         self.assertEqual(response.status, 200)
-        content = response.read().decode("utf-8")
+        content = json.load(response)
 
-        # FIXME: test content
+        self.assertEqual(content, ["cryptic"])
+
+    def test_autocomplete_cr(self):
+        url = "/autocomplete?query=cr"
+        response = self._make_request(url)
+
+        self.assertEqual(response.status, 200)
+        content = json.load(response)
+
+        self.assertEqual(
+            content,
+            [
+                "crabbing",
+                "crabgrass",
+                "crablike",
+                "crabmeat",
+                "cradle",
+                "cradling",
+                "crafter",
+                "craftily",
+                "craftsman",
+                "craftwork",
+            ],
+        )
 
     def test_404(self):
         url = "/unknown"
         with self.assertRaises(urllib.error.HTTPError) as error:
-            response = self._make_request(url)
+            self._make_request(url)
         self.assertEqual(error.exception.code, 404)
 
 
