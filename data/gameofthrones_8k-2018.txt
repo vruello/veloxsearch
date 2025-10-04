@@ -1360,7 +1360,7 @@ figure
 locke
 mauled
 smallfolk
-weï¿½re
+weÕre
 confused
 supremacy
 unarmed
@@ -1881,7 +1881,7 @@ west
 informed
 cared
 mutilating
-donï¿½t
+donÕt
 motives
 dangers
 demanding
@@ -2377,7 +2377,7 @@ pass
 further
 mill
 creatures
-ï¿½fuck
+Òfuck
 what
 apologizes
 darkness
@@ -5360,7 +5360,7 @@ figure
 locke
 mauled
 smallfolk
-weï¿½re
+weÕre
 confused
 supremacy
 unarmed
@@ -5881,7 +5881,7 @@ west
 informed
 cared
 mutilating
-donï¿½t
+donÕt
 motives
 dangers
 demanding
@@ -6377,7 +6377,7 @@ pass
 further
 mill
 creatures
-ï¿½fuck
+Òfuck
 what
 apologizes
 darkness

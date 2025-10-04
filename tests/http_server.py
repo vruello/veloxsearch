@@ -20,7 +20,7 @@ from velox_search.config import (
 from velox_search.velox import Velox
 
 
-class TestVeloxSearch(unittest.TestCase):
+class TestHTTPServer(unittest.TestCase):
     """
     Integration tests of Velox Search HTTP Server
     """
