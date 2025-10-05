@@ -12,8 +12,7 @@ from typing import Any, Callable, Self
 import typing
 import urllib.parse
 
-from veloxsearch.velox import Velox
-
+from ..velox import Velox
 from ..config import Config
 
 

@@ -1,8 +1,8 @@
-from veloxsearch.algorithms import Search
-from veloxsearch.algorithms.bisect import BisectSearch
-from veloxsearch.algorithms.naive import NaiveSearch
-from veloxsearch.algorithms.prefix_tree import PrefixTreeSearch
-from veloxsearch.config import Config, SearchAlgorithm
+from .algorithms import Search
+from .algorithms.bisect import BisectSearch
+from .algorithms.naive import NaiveSearch
+from .algorithms.prefix_tree import PrefixTreeSearch
+from .config import Config, SearchAlgorithm
 
 
 class Velox:
