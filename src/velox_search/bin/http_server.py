@@ -63,7 +63,7 @@ class VeloxHTTPRequestHandler(BaseHTTPRequestHandler):
         velox = typing.cast(VeloxHTTPServer, self.server).velox_instance
 
         try:
-            words = velox.search_prefix(prefix)
+            words = velox.complete_prefix(prefix)
         except Exception as e:
             logging.error("Failed to fetch words with prefix `%s`: %s", prefix, e)
             self.send_response(HTTPStatus.INTERNAL_SERVER_ERROR)

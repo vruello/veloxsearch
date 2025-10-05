@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from velox_search.config import SearchConfig
 
 
@@ -11,14 +12,16 @@ class Search:
     def __init__(self, config: SearchConfig):
         self.config = config
 
+    @abstractmethod
     def load_wordlist(self, wordlist: str) -> None:
         """
         Load the wordlist in memory
         """
         raise NotImplementedError
 
-    def search_prefix(self, prefix: str) -> list[str]:
+    @abstractmethod
+    def complete_prefix(self, prefix: str) -> list[str]:
         """
-        Return a list of words matching the given prefix in alphabetical order
+        Return a list of words starting with the given prefix in alphabetical order
         """
         raise NotImplementedError

@@ -10,12 +10,13 @@ class NaiveSearch(Search):
 
     def load_wordlist(self, wordlist: str) -> None:
         with open(wordlist, "r", errors="replace") as fd:
-            self.wordlist = [line.strip().lower() for line in fd.readlines()]
+            # The set removes duplicates
+            self.wordlist = [word.strip().lower() for word in fd]
 
-    def search_prefix(self, prefix: str) -> list[str]:
+    def complete_prefix(self, prefix: str) -> list[str]:
         prefix_lower = prefix.lower()
         matching = sorted(
-            word for word in self.wordlist if word.startswith(prefix_lower)
+            set(word for word in self.wordlist if word.startswith(prefix_lower))
         )
 
         return matching[: self.config.limit]

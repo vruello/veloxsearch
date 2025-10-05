@@ -8,7 +8,7 @@ class Velox:
     Main class of Velox
 
     During initialization, it instantiates the appropriate search class and
-    load the configured wordlist.
+    loads the configured wordlist.
     """
 
     config: Config
@@ -26,8 +26,8 @@ class Velox:
 
         self.handler.load_wordlist(config.search.wordlist)
 
-    def search_prefix(self, prefix: str) -> list[str]:
+    def complete_prefix(self, prefix: str) -> list[str]:
         """
         Return a list of words matching the provided prefix
         """
-        return self.handler.search_prefix(prefix)
+        return self.handler.complete_prefix(prefix)
