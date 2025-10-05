@@ -4,6 +4,7 @@ from . import Search
 
 class Node:
     children: dict[str, "Node"]
+    # A node is a leaf if it represents a word in the list
     is_leaf: bool
 
     def __init__(self):
