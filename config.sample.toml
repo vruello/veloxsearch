@@ -5,16 +5,16 @@ listen_addr = "localhost"
 listen_port = 10000
 
 [search]
-# Wordlist to search into
+# Wordlist file to load and search into
 wordlist = "data/eff_large_wordlist.txt"
 # Search algorithm to use. Valid values are:
-# - naive
-# - bisect
-# - prefixtree
+# - naive: Linear scan, unsorted list (Baseline)
+# - bisect: Binary search on a sorted list (Recommended Default)
+# - prefixtree: Trie/Prefix Tree structure
 algorithm = "bisect"
-# Maximum number of words to return
+# Maximum number of words to return in suggestions
 limit = 10
 
 [logging]
-# Available values: debug, info, warning, error, critical
+# Minimum logging level to display. Available values: debug, info, warning, error, critical
 level = "debug"
