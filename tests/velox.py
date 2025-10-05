@@ -101,22 +101,6 @@ class TestVelox(unittest.TestCase):
                 msg=f"Algorithm {algorithm} failed",
             )
 
-    def test_search_rockyou_cora(self):
-        for algorithm in SearchAlgorithm:
-            # PrefixTree takes too much time to load data
-            if algorithm == SearchAlgorithm.PrefixTree:
-                continue
-            try:
-                velox = Velox(get_config("rockyou.txt", algorithm, 5))
-            except NotImplementedError:
-                continue
-
-            self.assertEqual(
-                velox.complete_prefix("cora"),
-                ["cora", "cora carsyn", "cora#1", "cora$on", "cora&alec"],
-                msg=f"Algorithm {algorithm} failed",
-            )
-
     def test_search_french_pia(self):
         for algorithm in SearchAlgorithm:
             try:

@@ -41,13 +41,14 @@ def main():
         steps=1,
         exclude=[],
     )
-    benchmark(
-        "rockyou.txt",
-        limit=5,
-        queries=["c", "ba", "toto", "vince", "poutac"],
-        steps=1,
-        exclude=[],
-    )
+    # Requires data/rockyou.txt
+    # benchmark(
+    #     "rockyou.txt",
+    #     limit=5,
+    #     queries=["c", "ba", "toto", "vince", "poutac"],
+    #     steps=1,
+    #     exclude=[],
+    # )
 
 
 def format_results(results: dict[SearchAlgorithm, TestResult]):
