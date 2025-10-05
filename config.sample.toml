@@ -1,0 +1,20 @@
+[http_server]
+# HTTP server listening address
+listen_addr = "localhost"
+# HTTP server listening port
+listen_port = 10000
+
+[search]
+# Wordlist to search into
+wordlist = "data/eff_large_wordlist.txt"
+# Search algorithm to use. Valid values are:
+# - naive
+# - bisect
+# - prefixtree
+algorithm = "bisect"
+# Maximum number of words to return
+limit = 10
+
+[logging]
+# Available values: debug, info, warning, error, critical
+level = "debug"
