@@ -44,8 +44,7 @@ class LoggingConfig(ConfigLoader):
 class SearchAlgorithm(StrEnum):
     Naive = auto()
     Bisect = auto()
-    Tree = auto()
-    BisectTree = auto()
+    PrefixTree = auto()
 
 
 @dataclass

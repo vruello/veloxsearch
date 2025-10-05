@@ -1,5 +1,7 @@
 from velox_search.algorithms import Search
+from velox_search.algorithms.bisect import BisectSearch
 from velox_search.algorithms.naive import NaiveSearch
+from velox_search.algorithms.prefix_tree import PrefixTreeSearch
 from velox_search.config import Config, SearchAlgorithm
 
 
@@ -21,6 +23,10 @@ class Velox:
         match config.search.algorithm:
             case SearchAlgorithm.Naive:
                 self.handler = NaiveSearch(config.search)
+            case SearchAlgorithm.Bisect:
+                self.handler = BisectSearch(config.search)
+            case SearchAlgorithm.PrefixTree:
+                self.handler = PrefixTreeSearch(config.search)
             case _:
                 raise NotImplementedError
 

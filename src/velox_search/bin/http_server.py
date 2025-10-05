@@ -19,7 +19,9 @@ from ..config import Config
 
 class VeloxHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        """Serve a GET request."""
+        """
+        Serve a GET request
+        """
         try:
             url = urllib.parse.urlparse(self.path)
         except Exception as e:
@@ -61,6 +63,7 @@ class VeloxHTTPRequestHandler(BaseHTTPRequestHandler):
         prefix = query[0]
         # self.server is typed as a ThredingHTTPServer, but it is a VeloxHTTPServer
         velox = typing.cast(VeloxHTTPServer, self.server).velox_instance
+        logging.info("Compute word list for prefix %s", prefix)
 
         try:
             words = velox.complete_prefix(prefix)
@@ -77,6 +80,10 @@ class VeloxHTTPRequestHandler(BaseHTTPRequestHandler):
 
 
 class VeloxHTTPServer(ThreadingHTTPServer):
+    """
+    This subclass is used to inject <velox_instance> in HTTP server
+    """
+
     def __init__(
         self,
         velox_instance: Velox,

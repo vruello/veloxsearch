@@ -6,6 +6,7 @@ import unittest
 import threading
 import time
 import random
+import urllib.parse
 import urllib.request
 import urllib.error
 
@@ -113,6 +114,18 @@ class TestHTTPServer(unittest.TestCase):
         with self.assertRaises(urllib.error.HTTPError) as error:
             self._make_request(url)
         self.assertEqual(error.exception.code, 404)
+
+    def test_emoji(self):
+        url = "/autocomplete?query=cr" + urllib.parse.quote("😁")
+        response = self._make_request(url)
+
+        self.assertEqual(response.status, 200)
+        content = json.load(response)
+
+        self.assertEqual(
+            content,
+            [],
+        )
 
 
 # Pour lancer les tests depuis la ligne de commande: python -m unittest test_integration.py
