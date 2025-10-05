@@ -26,8 +26,9 @@ class BisectSearch(Search):
 
         # We use a set to remove duplicates
         words: set[str] = set()
-        while (len(words) < self.config.limit
-               and self.wordlist[index].startswith(prefix_lower)):
+        while len(words) < self.config.limit and self.wordlist[index].startswith(
+            prefix_lower
+        ):
             # We take at most <self.config.limit> unique words that starts with <prefix>
             words.add(self.wordlist[index])
             index += 1
