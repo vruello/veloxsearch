@@ -134,4 +134,7 @@ def main():
         config.http_server.listen_port,
     )
 
-    httpd.serve_forever()
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        logging.info("Shutdown HTTP Server")
