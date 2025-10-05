@@ -1,10 +1,10 @@
-This project implements a versatile **prefix-based autocomplete system**. It serves as a practical study and solution, supporting multiple search algorithms to retrieve word suggestions based on a given prefix.
+This project implements a **prefix-based autocomplete system**. It supports multiple search algorithms to retrieve word suggestions based on a given prefix.
 
 The system is designed to allow easy switching between three core algorithmic backends:
 
 1. **Naive Search (`naive`):** A straightforward linear scan across the entire, unsorted word list, included primarily for **baseline performance measurement**.
 2. **Binary Search (`bisect`):** The **recommended default**. This approach uses Python's highly optimized `bisect` module on a pre-sorted word list. Benchmarks demonstrate **superior speed** for in-memory operations across huge datasets in the Python environment.
-3. **Prefix Tree (`prefixtree`):** This is the classic implementation using a prefix tree. While theoretically considered the optimal algorithm for prefix search, its practical application in pure Python suffers from slow construction time (building the tree) and significant overhead from Python's dictionary lookups, making it slower than the native bisect approach in my benchmarks.
+3. **Prefix Tree (`prefixtree`):** This is the classic implementation using a prefix tree. While theoretically considered the optimal algorithm for prefix search, its practical application in pure Python suffers from slow construction time (building the tree) and significant overhead from Python's dictionary lookups, making it slower than the native bisect approach in benchmarks.
 
 The project is structured to easily switch between these backends, allowing developers to choose the optimal balance of complexity, memory usage, and execution speed.
 
@@ -44,7 +44,7 @@ The API returns a JSON array containing the list of suggestions, sorted alphabet
 
 ## Configuration
 
-The service is configured via a configuration file in toml format. By default, it tries to read `/etc/veloxsearch.conf.toml`, except if a `--config` argument is given in command line.
+The service is configured via a TOML configuration file. By default, it attempts to read `/etc/veloxsearch.conf.toml`, unless a `--config` argument is provided on the command line.
 
 A commented example of the configuration structure is provided below:
 ```toml
@@ -78,13 +78,12 @@ level = "debug"
 ```
 $ docker build -t veloxsearch .
 ```
-
-* Create a config.toml file, with `http_server.listen_addr` set to `0.0.0.0`.
-
-* Run locally:
+* Create a `config.toml` file, with `http_server.listen_addr` set to `0.0.0.0` and `http_server.listen_port` set to `10000` (for example)
+* Run the container:
 ```
 $ docker run --rm -v ./config.toml:/etc/veloxsearch.conf.toml:ro -p 127.0.0.1:10000:10000 veloxsearch
 ```
+* `veloxsearch` HTTP server is listening on `127.0.0.1:10000`
 
 ### Using pip
 
@@ -114,7 +113,7 @@ $ make test
 
 ## Performance Benchmarks
 
-Empirical testing confirms the efficiency of the `bisect` approach, making it the fastest choice for Python in-memory string search. All tests have been performed on `11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz`.
+Empirical testing confirms the efficiency of the `bisect` approach, making it the fastest choice for Python in-memory string search. All tests were performed on `11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz`.
 
 Benchmark can be run using:
 ```
@@ -129,7 +128,7 @@ $ make bench
 | 336,530 words | **57** | 94 | 1100 |
 | 14,344,392 words | **1602** | 3209 | 70062 |
 
-The `naive` approach is unsurprisingly the best regarding loading time, but `bisect` performs quite reasonnably. However, `prefixtree` performs very bad when loading huge wordlists.
+The `naive` approach is unsurprisingly the best regarding loading time, but `bisect` performs quite reasonably. However, `prefixtree` performs very poorly when loading huge wordlists.
 
 ### Prefix Completion Time
 
@@ -139,5 +138,4 @@ The `naive` approach is unsurprisingly the best regarding loading time, but `bis
 | 336,530 words | 9.18 | **0.0079** | 0.0097 |
 | 14,344,392 words | 425 | **0.012** | 0.028 |
 
-As expected, the `naive` approach performs quite bad, even on small datasets. However, the `bisect` algorithm performs surprisingly well and even outperforms `prefixtree`, which is supposed to be one of the most optmized method to do prefix completion. This may be due to the speed of the C-implemented binary search (`bisect`) which outperforms the cumulative overhead of dictionnary lookups and recursion inherent to the pure Python prefix tree implementation.
-
+As expected, the `naive` approach performs quite poorly, even on small datasets. However, the `bisect` algorithm performs surprisingly well and even outperforms `prefixtree`, which is supposed to be one of the most optimized methods for prefix completion. This may be due to the speed of the C-implemented binary search (`bisect`), which outperforms the cumulative overhead of dictionary lookups and recursion inherent to the pure Python prefix tree implementation.	
