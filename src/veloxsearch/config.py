@@ -5,7 +5,7 @@ import tomllib
 from typing import Any, Optional, Type
 import sys
 
-DEFAULT_CONFIG_PATH = "/etc/velox-search.conf.toml"
+DEFAULT_CONFIG_PATH = "/etc/veloxsearch.conf.toml"
 
 # TODO: Could be simplified a lot using a library such as pydantic
 

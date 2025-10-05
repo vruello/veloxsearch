@@ -1,5 +1,5 @@
 [project]
-name = "velox-search"
+name = "veloxsearch"
 version = "0.0.1"
 authors = [
   { name="Vincent Ruello", email="5345986+vruello@users.noreply.github.com" },
@@ -21,4 +21,4 @@ dev = [
 ]
 
 [project.scripts]
-velox-search = "velox_search.bin.http_server:main"
+veloxsearch = "veloxsearch.bin.http_server:main"

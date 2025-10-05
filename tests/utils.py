@@ -1,5 +1,5 @@
 import os
-from velox_search.config import (
+from veloxsearch.config import (
     Config,
     HttpServerConfig,
     LoggingConfig,

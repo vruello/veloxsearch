@@ -4,8 +4,8 @@ import time
 import utils
 import sys
 
-from velox_search.config import SearchAlgorithm
-from velox_search.velox import Velox
+from veloxsearch.config import SearchAlgorithm
+from veloxsearch.velox import Velox
 
 
 @dataclass

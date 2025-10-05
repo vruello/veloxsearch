@@ -2,10 +2,10 @@ import logging
 import unittest
 
 from .utils import get_config
-from velox_search.config import (
+from veloxsearch.config import (
     SearchAlgorithm,
 )
-from velox_search.velox import Velox
+from veloxsearch.velox import Velox
 
 
 class TestVelox(unittest.TestCase):
@@ -147,6 +147,19 @@ class TestVelox(unittest.TestCase):
 
             self.assertEqual(
                 velox.complete_prefix("obi"),
+                ["obi-wan"],
+                msg=f"Algorithm {algorithm} failed",
+            )
+
+    def test_search_starwars_OBI_3(self):
+        for algorithm in SearchAlgorithm:
+            try:
+                velox = Velox(get_config("starwars_8k_2018.txt", algorithm, 3))
+            except NotImplementedError:
+                continue
+
+            self.assertEqual(
+                velox.complete_prefix("OBI"),
                 ["obi-wan"],
                 msg=f"Algorithm {algorithm} failed",
             )

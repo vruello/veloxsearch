@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from velox_search.config import SearchConfig
+from veloxsearch.config import SearchConfig
 
 
 class Search:

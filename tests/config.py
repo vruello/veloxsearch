@@ -1,7 +1,7 @@
 import unittest
 import tomllib
 
-from velox_search.config import Config
+from veloxsearch.config import Config
 
 # TODO: Add tests for other config parameters
 

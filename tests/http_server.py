@@ -10,15 +10,15 @@ import urllib.parse
 import urllib.request
 import urllib.error
 
-from velox_search.bin.http_server import http_server
-from velox_search.config import (
+from veloxsearch.bin.http_server import http_server
+from veloxsearch.config import (
     Config,
     HttpServerConfig,
     LoggingConfig,
     SearchAlgorithm,
     SearchConfig,
 )
-from velox_search.velox import Velox
+from veloxsearch.velox import Velox
 
 
 class TestHTTPServer(unittest.TestCase):
